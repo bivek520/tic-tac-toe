@@ -74,7 +74,7 @@ def minimax(board,depth,isMax):
         for i, x in enumerate(board):
             for j, y in enumerate(board):
                 if board[i][j] == '.':
-                    board[i][j] = player
+                    board[i][j] = "X"
                     best = min(best, minimax(board, depth + 1,not(isMax)))
                     board[i][j] = '.'
         return best
@@ -133,7 +133,7 @@ def WinnerCheck():
             winFlag = True
     if board[0, 2] == board[1, 1] and board[0, 2] == board[2, 0] and board[0,2]!='.':
             winFlag = True
-    print(board)
+    #print(board)
     if winFlag:
         global changeFlag
         changeFlag = False
@@ -141,26 +141,24 @@ def WinnerCheck():
         turn.configure(text="Player {} won".format(player))
         replay = tk.Button(window,text="Play Again", command=restart, height=1, width=20,fg="green",activebackground='red')
         replay.grid(row=5, column=0,columnspan=3)
+    if not(isMovesLeft(board)):
+        turn.configure(text="DRAW")
+        replay = tk.Button(window, text="Play Again", command=restart, height=1, width=20, fg="green",
+                           activebackground='red')
+        replay.grid(row=5, column=0, columnspan=3)
 
 
 
 def aiPlay():
-    """while True:
-        randRow = random.randrange(0,3)
-        randCol = random.randrange(0,3)
-        if board[randRow, randCol] != 'X' and board[randRow, randCol] != 'O':
-            fontStyle = tkFont.Font(family="Lucida Grande", size=60)
-            label = tk.Label(window, text=player, font=fontStyle)
-            label.grid(row=randRow, column=randCol)
-            board[randRow, randCol] = player
-            WinnerCheck()
-            if changeFlag:
-                changeTurn()
-            break"""
     RC = best_move()
     fontStyle = tkFont.Font(family="Lucida Grande", size=60)
     label = tk.Label(window, text=player, font=fontStyle)
-    label.grid(row=RC.row, column=RC.column)
+    if RC.row==-1 and RC.column==-1:
+        WinnerCheck()
+    try:
+        label.grid(row=RC.row, column=RC.column)
+    except:
+        print("")
     board[RC.row, RC.column] = player
     WinnerCheck()
     if changeFlag:
@@ -176,6 +174,7 @@ def button_clicked(r, c):
         changeTurn()
     if player=='O':
         aiPlay()
+
 
 b00 = tk.Button(window, command=partial(button_clicked, 0, 0), height=5, width=8)
 b01 = tk.Button(window, command=partial(button_clicked, 0, 1), height=5, width=8)
