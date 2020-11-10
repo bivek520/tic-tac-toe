@@ -1,4 +1,4 @@
-#Goal
+# Goal
 To understand and implement minimax alogorithm learned in AI class
 # tic-tac-toe
 To run the above program, open terminal and type the command below:
