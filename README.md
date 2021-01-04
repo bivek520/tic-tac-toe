@@ -10,5 +10,5 @@ $ python tictactoe_Minimax.py
 * tictactoe_Minimax.py
       <pre>This version uses the <b>minimax algorithm</b> to make the computer move.</pre> 
 # Implemented
-* minimax alogorithm 
+* MiniMax algorithm 
 * Built using python, numpy and Tkinter
